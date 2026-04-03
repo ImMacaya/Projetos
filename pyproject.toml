@@ -1,0 +1,37 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "user-registry"
+version = "0.1.0"
+description = "User registry project"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+  "typer[all]>=0.12.0",
+  "rich>=13.0.0",
+]
+
+[project.optional-dependencies]
+dev = [
+  "pytest>=8.0.0",
+  "ruff>=0.6.0",
+]
+
+# Diz ao setuptools que os pacotes estão dentro de /src
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+# (Opcional) Config do pytest para ele achar testes e não precisar de pytest.ini
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
+
+# (Opcional) Configuração do Ruff
+[tool.ruff]
+line-length = 88
+target-version = "py310"
