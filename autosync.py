@@ -11,7 +11,7 @@ from watchdog.events import FileSystemEventHandler
 # ======= CONFIG =======
 DEBOUNCE_SECONDS = 2.0          # espera um pouco após o último save
 AUTO_PUSH = True               # True: já faz push pro GitHub
-BRANCH = None                  # None: usa branch atual | "autosave": força branch
+BRANCH = "autosave"                  # None: usa branch atual | "autosave": força branch
 COMMIT_PREFIX = "autosave"     # prefixo do commit
 # ======================
 
