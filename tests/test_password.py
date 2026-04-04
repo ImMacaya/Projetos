@@ -1,4 +1,9 @@
-from user_registry.security.password import generate_salt, hash_password, verify_password
+from user_registry.security.password import (
+    generate_salt,
+    hash_password,
+    verify_password,
+)
+
 
 def test_password_hash_and_verify():
     salt = generate_salt()

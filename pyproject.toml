@@ -19,19 +19,16 @@ dev = [
   "ruff>=0.6.0",
 ]
 
-# Diz ao setuptools que os pacotes estão dentro de /src
 [tool.setuptools]
 package-dir = {"" = "src"}
 
 [tool.setuptools.packages.find]
 where = ["src"]
 
-# (Opcional) Config do pytest para ele achar testes e não precisar de pytest.ini
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 addopts = "-q"
 
-# (Opcional) Configuração do Ruff
 [tool.ruff]
 line-length = 88
 target-version = "py310"

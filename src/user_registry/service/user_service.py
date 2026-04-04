@@ -1,8 +1,17 @@
 import uuid
 from user_registry.domain.models import User
-from user_registry.domain.validators import validate_email, validate_name, validate_password
-from user_registry.security.password import generate_salt, hash_password, verify_password
+from user_registry.domain.validators import (
+    validate_email,
+    validate_name,
+    validate_password,
+)
+from user_registry.security.password import (
+    generate_salt,
+    hash_password,
+    verify_password,
+)
 from user_registry.repository.interfaces import IUserRepository
+
 
 class UserService:
     def __init__(self, repo: IUserRepository):

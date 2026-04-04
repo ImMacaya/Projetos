@@ -9,38 +9,44 @@ from watchdog.observers import Observer
 from watchdog.events import FileSystemEventHandler
 
 # ======= CONFIG =======
-DEBOUNCE_SECONDS = 2.0          # espera um pouco após o último save
-AUTO_PUSH = True               # True: já faz push pro GitHub
-BRANCH = "autosave"                  # None: usa branch atual | "autosave": força branch
-COMMIT_PREFIX = "autosave"     # prefixo do commit
+DEBOUNCE_SECONDS = 2.0  # espera um pouco após o último save
+AUTO_PUSH = True  # True: já faz push pro GitHub
+BRANCH = "autosave"  # None: usa branch atual | "autosave": força branch
+COMMIT_PREFIX = "autosave"  # prefixo do commit
 # ======================
 
 IGNORED_DIRS = {".git", ".venv", "venv", "__pycache__", "build", "dist"}
 IGNORED_SUFFIXES = {".pyc", ".pyo", ".log"}
 IGNORED_FILES = {"Thumbs.db"}
 
+
 def run(cmd):
     """Executa comando e retorna (returncode, stdout)."""
     p = subprocess.run(cmd, capture_output=True, text=True, shell=False)
     return p.returncode, (p.stdout or "").strip(), (p.stderr or "").strip()
 
+
 def in_repo_root():
     code, out, err = run(["git", "rev-parse", "--is-inside-work-tree"])
     return code == 0 and out.strip() == "true"
+
 
 def has_staged_changes():
     # returncode 1 => há diferenças staged, 0 => não há
     code, _, _ = run(["git", "diff", "--cached", "--quiet"])
     return code == 1
 
+
 def has_worktree_changes():
     code, out, _ = run(["git", "status", "--porcelain"])
     return code == 0 and bool(out.strip())
+
 
 def checkout_branch_if_needed():
     if BRANCH:
         # cria branch se não existir
         run(["git", "checkout", "-B", BRANCH])
+
 
 def do_commit_and_push(changed_path=None):
     if not in_repo_root():
@@ -66,6 +72,7 @@ def do_commit_and_push(changed_path=None):
     if AUTO_PUSH:
         run(["git", "push"])
 
+
 class DebouncedHandler(FileSystemEventHandler):
     def __init__(self):
         super().__init__()
@@ -77,7 +84,9 @@ class DebouncedHandler(FileSystemEventHandler):
         with self._lock:
             if self._timer:
                 self._timer.cancel()
-            self._timer = threading.Timer(DEBOUNCE_SECONDS, do_commit_and_push, args=(self._last_path,))
+            self._timer = threading.Timer(
+                DEBOUNCE_SECONDS, do_commit_and_push, args=(self._last_path,)
+            )
             self._timer.daemon = True
             self._timer.start()
 
@@ -104,13 +113,18 @@ class DebouncedHandler(FileSystemEventHandler):
         # Agenda commit/push com debounce
         self._schedule()
 
+
 def main():
     if not in_repo_root():
-        print("❌ Este diretório não parece ser um repositório git. Rode dentro do seu projeto.")
+        print(
+            "❌ Este diretório não parece ser um repositório git. Rode dentro do seu projeto."
+        )
         return
 
     print("✅ Monitorando mudanças. Salvou arquivo → commit → push (com debounce).")
-    print(f"   Debounce: {DEBOUNCE_SECONDS}s | Auto push: {AUTO_PUSH} | Branch: {BRANCH or '(atual)'}")
+    print(
+        f"   Debounce: {DEBOUNCE_SECONDS}s | Auto push: {AUTO_PUSH} | Branch: {BRANCH or '(atual)'}"
+    )
     print("   Pressione Ctrl+C para parar.")
 
     observer = Observer()
@@ -124,6 +138,7 @@ def main():
     except KeyboardInterrupt:
         observer.stop()
     observer.join()
+
 
 if __name__ == "__main__":
     main()
