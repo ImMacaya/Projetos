@@ -1,0 +1,26 @@
+version: 2
+updates:
+  - package-ecosystem: "pip"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "09:00"
+    target-branch: "main"
+    open-pull-requests-limit: 5
+
+    # Agrupa updates para evitar muitos PRs pequenos
+    groups:
+      python-dependencies:
+        patterns:
+          - "*"
+
+    # Labels padrão para facilitar triagem
+    labels:
+      - "dependencies"
+      - "automerge-candidate"
+
+    # (Opcional) Mensagem no commit da PR
+    commit-message:
+      prefix: "chore"
+      include: "scope"
