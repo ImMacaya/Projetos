@@ -1,0 +1,85 @@
+name: "🐛 Bug report"
+description: "Reporte um problema para ajudarmos a corrigir."
+title: "[Bug]: "
+labels: ["bug"]
+assignees: []
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Obrigado por reportar! Por favor, preencha o máximo de detalhes possível.
+
+  - type: textarea
+    id: description
+    attributes:
+      label: "Descrição do bug"
+      description: "Explique o que aconteceu e qual era o comportamento esperado."
+      placeholder: "Ao executar..., ocorreu... Eu esperava..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: "Passos para reproduzir"
+      description: "Liste o passo a passo para reproduzir o problema."
+      placeholder: |
+        1. Rode `python -m user_registry ...`
+        2. Informe ...
+        3. Veja o erro ...
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: "Resultado esperado"
+      placeholder: "O sistema deveria..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: actual
+    attributes:
+      label: "Resultado obtido / logs"
+      description: "Cole o output do terminal (se possível)."
+      render: shell
+    validations:
+      required: false
+
+  - type: input
+    id: os
+    attributes:
+      label: "Sistema operacional"
+      placeholder: "Windows 11 / Ubuntu 22.04 / macOS..."
+    validations:
+      required: true
+
+  - type: input
+    id: python
+    attributes:
+      label: "Versão do Python"
+      placeholder: "3.10.x / 3.11.x / 3.12.x"
+    validations:
+      required: true
+
+  - type: textarea
+    id: environment
+    attributes:
+      label: "Ambiente / contexto"
+      description: "VS Code? .venv ativada? Instalou com `pip install -e \"[dev]\"`?"
+      placeholder: "Ex.: VS Code, .venv ativa, instalado com -e..."
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: confirmations
+    attributes:
+      label: "Confirmações"
+      options:
+        - label: "Verifiquei se estou na raiz do projeto (onde está o pyproject.toml)"
+          required: true
+        - label: "Instalei/atualizei o projeto em modo editável: `python -m pip install -e \".[dev]\"`"
+          required: true
+        - label: "Rodei `pytest` e `ruff check .` (quando aplicável)"
+          required: false

@@ -1,0 +1,55 @@
+name: "✨ Feature request"
+description: "Sugira uma melhoria ou nova funcionalidade."
+title: "[Feature]: "
+labels: ["enhancement"]
+assignees: []
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Obrigado pela sugestão! Quanto mais contexto, melhor.
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: "Qual problema isso resolve?"
+      description: "Explique a dor/necessidade por trás da feature."
+      placeholder: "Hoje eu não consigo..., isso ajudaria porque..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposal
+    attributes:
+      label: "Proposta de solução"
+      description: "Descreva como você imagina a feature funcionando."
+      placeholder: "Adicionar comando X que faz Y..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: "Alternativas consideradas"
+      description: "Existem outras formas de resolver? (opcional)"
+      placeholder: "Também poderia ser..."
+    validations:
+      required: false
+
+  - type: textarea
+    id: additional
+    attributes:
+      label: "Informações adicionais"
+      description: "Links, exemplos, prints, contexto extra."
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: scope
+    attributes:
+      label: "Escopo"
+      options:
+        - label: "Esta feature está alinhada ao objetivo do projeto (CLI + SQLite + arquitetura em camadas)"
+          required: true
+        - label: "Estou disposto(a) a contribuir com um PR (opcional)"
+          required: false

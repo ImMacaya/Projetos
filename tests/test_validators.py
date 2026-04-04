@@ -1,5 +1,9 @@
 import pytest
-from user_registry.domain.validators import validate_email, validate_name, validate_password
+from user_registry.domain.validators import (
+    validate_email,
+    validate_name,
+    validate_password,
+)
 
 
 def test_validate_email_ok():
