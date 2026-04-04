@@ -7,19 +7,13 @@ from user_registry.repository.interfaces import IUserRepository
 
 
 class SQLiteUserRepository(IUserRepository):
-    """
-    Repositório responsável por persistir e consultar usuários usando SQLite.
-    Implementa o contrato IUserRepository.
-    """
-
     def __init__(self, db_path=DB_PATH):
         DATA_DIR.mkdir(exist_ok=True)
         self.db_path = str(db_path)
         self._init_db()
 
     def _connect(self) -> sqlite3.Connection:
-        con = sqlite3.connect(self.db_path)
-        return con
+        return sqlite3.connect(self.db_path)
 
     def _init_db(self) -> None:
         with self._connect() as con:
@@ -51,8 +45,11 @@ class SQLiteUserRepository(IUserRepository):
     def get_by_email(self, email: str) -> Optional[User]:
         with self._connect() as con:
             row = con.execute(
-                "SELECT id, name, email, password_hash, password_salt, is_active, created_at, updated_at "
-                "FROM users WHERE email = ?",
+                """
+                SELECT id, name, email, password_hash, password_salt, is_active, created_at, updated_at
+                FROM users
+                WHERE email = ?
+                """,
                 (email,),
             ).fetchone()
 
@@ -73,8 +70,11 @@ class SQLiteUserRepository(IUserRepository):
     def list_all(self) -> List[User]:
         with self._connect() as con:
             rows = con.execute(
-                "SELECT id, name, email, password_hash, password_salt, is_active, created_at, updated_at "
-                "FROM users ORDER BY created_at DESC"
+                """
+                SELECT id, name, email, password_hash, password_salt, is_active, created_at, updated_at
+                FROM users
+                ORDER BY created_at DESC
+                """
             ).fetchall()
 
             return [
