@@ -1,6 +1,6 @@
 # User Registry (Python) — SQLite + Typer + Rich
 
-[(https://github.com/ImMacaya/User-Registry-PY/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/ImMacaya/User-Registry-PY/actions/workflows/ci.yml)
+(https://github.com/ImMacaya/User-Registry-py/actions/workflows/ci.yml/badge.svg?branch=main)(https://github.com/ImMacaya/User-Registry-py/actions/workflows/ci.yml)
 ![Python](https://img.shields.io/badge/Python-3.10%2B-blue)
 ![Ruff](https://img.shields.io/badge/Ruff-lint%20%26%20format-261230)
 ![SQLite](https://img.shields.io/badge/SQLite-embedded-003B57)
